@@ -1,0 +1,13 @@
+
+
+
+.new-div {
+    display: inline-flex;
+    width: 100px;
+    height: 100px;
+    border: 1px solid blue;
+    background-color: yellow;
+    width: 6.25%;
+    box-sizing: border-box;
+    
+}

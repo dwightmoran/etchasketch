@@ -5,30 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch-a-Sketch</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    >
-    <div id="wrapper">
-      <div id="container">
-        <div id="board">
-     
-   </div> 
-
+  <div id="wrapper">
+    <div id="container">
+      <div id="board">
+      </div>
+    </div>
+  </div>
    <script>
 
-    for (i=0; i<256; i++) {
-    const cell = document.createElement('div');
-    cell.className = "cellClass";
+    // for (i=0; i<256; i++) {
+    // const cell = document.createElement('div');
+    // cell.className = "cellClass";
 
-    cell.textContent = "Hello World!";
+    // cell.textContent = "Hello World!";
 
-    document.getElementByID('cell').appendChild(cell);
+    // document.getElementByID('cell').appendChild(cell);
     // document.getElementByID('cell').style.border="red";
-    }
-    
-    
-    
-    
+    // }
     
     
     (function () {
@@ -38,7 +34,7 @@
     var boardDiv = document.createElement("div");
 
     boardDiv.className = "new-div";
-    boardDiv.innerText = "I am new DIV";
+    boardDiv.innerText = "";
 
     return boardDiv;
   }
@@ -47,20 +43,31 @@
     var board = document.getElementById("board"),
       myDivs = [],
       i = 0,
-      numOfDivs = 9;
+      numOfDivs = 256;
 
     for (i; i < numOfDivs; i += 1) {
       myDivs.push(createDiv());
       board.appendChild(myDivs[i]);
     }
 
-    myDivs[5].className = "modified-div";
-    myDivs[5].innerText = "I'm modified DIV";
+    // myDivs[5].className = "modified-div";
+    // myDivs[5].innerText = "I'm modified DIV";
   }
 
   createAndModifyDivs();
 
 }());
+
+
+// var item = document.getElementById("button");
+// item.addEventListener("mouseover", func, false);
+
+// function func()
+// {  
+//    var item = document.getElementById("button");
+//    item.setAttribute("style", "background-color:blue;")
+// }
+
 
    </script>
 </body>
