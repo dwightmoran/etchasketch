@@ -1,74 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etch-a-Sketch</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Etch-a-Sketch</title>
+  <style>
+    :root {
+      --numOfDivs: 16;
+    }
+    #wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #container {
+      width: 960px;
+      height: 960px;
+      border: 1px solid black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #board {
+      display: grid;
+      grid-template-columns: repeat(var(--numOfDivs), 1fr);
+      grid-template-rows: repeat(var(--numOfDivs), 1fr);
+    }
+    .new-div {
+      display: inline-block;
+      box-sizing: border-box;
+      width: calc(960px / var(--numOfDivs));
+      height: calc(960px / var(--numOfDivs));
+      border: 1px solid blue;
+      background-color: yellow;
+      margin: 0;
+      padding: 0;
+      font-size: 0;
+      vertical-align: top;
+    }
+  </style>
 </head>
 <body>
+  <button id="reset-btn">Create new grid</button>
   <div id="wrapper">
     <div id="container">
       <div id="board">
       </div>
     </div>
   </div>
-   <script>
-
-    // for (i=0; i<256; i++) {
-    // const cell = document.createElement('div');
-    // cell.className = "cellClass";
-
-    // cell.textContent = "Hello World!";
-
-    // document.getElementByID('cell').appendChild(cell);
-    // document.getElementByID('cell').style.border="red";
-    // }
+  <script>
+    const DEFAULT_BOXES_PER_SIDE = 16;
+    const MAX_BOXES_PER_SIDE = 100;
+    const board = document.getElementById("board");
+    const resetButton = document.getElementById("reset-btn");
     
-    
-    (function () {
-  "use strict";
-
-  function createDiv() {
-    var boardDiv = document.createElement("div");
-
-    boardDiv.className = "new-div";
-    boardDiv.innerText = "";
-
-    return boardDiv;
-  }
-
-  function createAndModifyDivs() {
-    var board = document.getElementById("board"),
-      myDivs = [],
-      i = 0,
-      numOfDivs = 256;
-
-    for (i; i < numOfDivs; i += 1) {
-      myDivs.push(createDiv());
-      board.appendChild(myDivs[i]);
+    function createDiv() {
+      const boardDiv = document.createElement("div");
+      boardDiv.className = "new-div";
+      return boardDiv;
     }
 
-    // myDivs[5].className = "modified-div";
-    // myDivs[5].innerText = "I'm modified DIV";
-  }
+    function createAndModifyDivs(numOfDivs) {
+      document.documentElement.style.setProperty('--numOfDivs', numOfDivs);
+      board.innerHTML = "";
+      const myDivs = [];
 
-  createAndModifyDivs();
+      for (let i = 0; i < numOfDivs * numOfDivs; i += 1) {
+        myDivs.push(createDiv());
+        board.appendChild(myDivs[i]);
+        myDivs[i].addEventListener("mouseover", function() {
+          this.style.backgroundColor = "blue";
+        });
+      }
+    }
 
-}());
+    resetButton.addEventListener("click", function() {
+      let numOfDivs = parseInt(prompt("How many boxes per side? (Max 100)", DEFAULT_BOXES_PER_SIDE));
+      if (isNaN(numOfDivs) || numOfDivs < 1) {
+        numOfDivs = DEFAULT_BOXES_PER_SIDE;
+      } else if (numOfDivs > MAX_BOXES_PER_SIDE) {
+        numOfDivs = MAX_BOXES_PER_SIDE;
+      }
+      createAndModifyDivs(numOfDivs);
+    });
 
-
-// var item = document.getElementById("button");
-// item.addEventListener("mouseover", func, false);
-
-// function func()
-// {  
-//    var item = document.getElementById("button");
-//    item.setAttribute("style", "background-color:blue;")
-// }
-
-
-   </script>
+    createAndModifyDivs(DEFAULT_BOXES_PER_SIDE);
+  </script>
 </body>
 </html>
